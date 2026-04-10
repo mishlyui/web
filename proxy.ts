@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-
-const publicPaths = ["/", "/login"]
+import { PUBLIC_ROUTES } from "@/constants/routes"
+import { AUTH_COOKIE } from "@/constants/auth"
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -10,16 +10,16 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const isPublicPath = publicPaths.some((path) => pathname === path)
+  const isPublicPath = PUBLIC_ROUTES.some((path) => pathname === path)
 
   if (isPublicPath) {
     return NextResponse.next()
   }
 
-  const sessionToken = request.cookies.get("better-auth.session_token")
+  const sessionToken = request.cookies.get(AUTH_COOKIE.SESSION_TOKEN)
 
   if (!sessionToken) {
-    const loginUrl = new URL("/login", request.url)
+    const loginUrl = new URL(PUBLIC_ROUTES[1], request.url)
     loginUrl.searchParams.set("from", pathname)
     return NextResponse.redirect(loginUrl)
   }

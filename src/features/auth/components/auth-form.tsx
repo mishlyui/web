@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { GitHubIcon, GoogleIcon } from "@/components/ui/icons"
 import { emailSchema } from "@/features/auth/schemas/email.schema"
 import { useFormValidation } from "@/hooks/use-form-validation"
+import { AUTH_CALLBACKS, AUTH_PROVIDERS } from "@/constants/auth"
 
 export const AuthForm = memo(() => {
   const [email, setEmail] = useState("")
@@ -32,7 +33,7 @@ export const AuthForm = memo(() => {
       try {
         await authClient.signIn.magicLink({
           email,
-          callbackURL: "/",
+          callbackURL: AUTH_CALLBACKS.DEFAULT,
         })
         setMessage("Check your email for the magic link!")
         setEmail("")
@@ -52,27 +53,30 @@ export const AuthForm = memo(() => {
     }
   }
 
-  const handleSocialSignIn = useCallback(async (provider: "github" | "google") => {
-    if (provider === "github") {
-      setIsGithubLoading(true)
-    } else {
-      setIsGoogleLoading(true)
-    }
-
-    try {
-      await authClient.signIn.social({
-        provider,
-        callbackURL: "/",
-      })
-    } catch {
-      setMessage(`Failed to sign in with ${provider}`)
-      if (provider === "github") {
-        setIsGithubLoading(false)
+  const handleSocialSignIn = useCallback(
+    async (provider: typeof AUTH_PROVIDERS.GITHUB | typeof AUTH_PROVIDERS.GOOGLE) => {
+      if (provider === AUTH_PROVIDERS.GITHUB) {
+        setIsGithubLoading(true)
       } else {
-        setIsGoogleLoading(false)
+        setIsGoogleLoading(true)
       }
-    }
-  }, [])
+
+      try {
+        await authClient.signIn.social({
+          provider,
+          callbackURL: AUTH_CALLBACKS.DEFAULT,
+        })
+      } catch {
+        setMessage(`Failed to sign in with ${provider}`)
+        if (provider === AUTH_PROVIDERS.GITHUB) {
+          setIsGithubLoading(false)
+        } else {
+          setIsGoogleLoading(false)
+        }
+      }
+    },
+    [],
+  )
 
   return (
     <div className="w-full max-w-sm space-y-6">
@@ -103,7 +107,7 @@ export const AuthForm = memo(() => {
       <div className="grid grid-cols-2 gap-3">
         <Button
           variant="outline"
-          onClick={() => handleSocialSignIn("github")}
+          onClick={() => handleSocialSignIn(AUTH_PROVIDERS.GITHUB)}
           isLoading={isGithubLoading}
           disabled={isLoading}
           className="flex w-full items-center justify-center"
@@ -112,7 +116,7 @@ export const AuthForm = memo(() => {
         </Button>
         <Button
           variant="outline"
-          onClick={() => handleSocialSignIn("google")}
+          onClick={() => handleSocialSignIn(AUTH_PROVIDERS.GOOGLE)}
           isLoading={isGoogleLoading}
           disabled={isLoading}
           className="flex w-full items-center justify-center"

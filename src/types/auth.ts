@@ -20,4 +20,6 @@ export interface Session {
   }
 }
 
-export type AuthProvider = "github" | "google"
+import { AUTH_PROVIDERS } from "@/constants/auth"
+
+export type AuthProvider = typeof AUTH_PROVIDERS.GITHUB | typeof AUTH_PROVIDERS.GOOGLE

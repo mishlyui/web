@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { authClient } from "@/features/auth/lib/client"
 import { Button } from "@/components/ui/button"
+import { ROUTES } from "@/constants/routes"
 
 export default function ProfilePage() {
   const { data: session } = authClient.useSession()
@@ -14,7 +15,7 @@ export default function ProfilePage() {
     try {
       setIsSigningOut(true)
       await authClient.signOut()
-      router.push("/login")
+      router.push(ROUTES.LOGIN)
     } catch (error) {
       console.error("Sign out failed:", error)
     } finally {

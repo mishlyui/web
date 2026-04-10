@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { authClient } from "@/features/auth/lib/client"
 import { useLoading } from "@/hooks/use-loading"
+import { ROUTES } from "@/constants/routes"
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   const { data: session, isPending } = authClient.useSession()
@@ -11,7 +12,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isPending && !session) {
-      router.push("/login")
+      router.push(ROUTES.LOGIN)
     }
   }, [session, isPending, router])
 

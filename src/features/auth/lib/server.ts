@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db/client"
 import { betterAuth } from "better-auth"
 import { magicLink } from "better-auth/plugins"
 import { prismaAdapter } from "better-auth/adapters/prisma"
+import { env, isDevelopment } from "@/config/env"
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -12,18 +13,18 @@ export const auth = betterAuth({
   },
   socialProviders: {
     github: {
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
     },
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     },
   },
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url }) => {
-        if (process.env.NODE_ENV === "development") {
+        if (isDevelopment) {
           console.log(`\nMagic link for ${email}:\n${url}\n`)
         }
       },
