@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { env } from "@/config/env"
 
 const SITE_NAME = "Mishly UI"
 const SITE_DESCRIPTION = "Modern React component library"
@@ -20,5 +21,5 @@ export const metadataConfig = {
 export const siteConfig = {
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
-  url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  url: env.NEXT_PUBLIC_URL,
 } as const

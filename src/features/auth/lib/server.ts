@@ -6,6 +6,7 @@ import { env, isDevelopment } from "@/config/env"
 import { BETTER_AUTH_RATE_LIMIT } from "@/constants/rate-limit"
 
 export const auth = betterAuth({
+  baseURL: env.BETTER_AUTH_URL,
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
