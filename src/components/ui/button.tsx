@@ -16,11 +16,10 @@ export const Button = memo(
           disabled={disabled || isLoading}
           className={cn(
             "flex cursor-pointer items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50",
-            variant === "primary" && "bg-primary text-primary-foreground hover:opacity-70",
-            variant === "ghost" &&
-              "bg-card text-card-foreground hover:bg-secondary border shadow-sm hover:opacity-90",
+            variant === "primary" && "bg-primary text-primary-foreground hover:bg-primary/80",
+            variant === "ghost" && "text-foreground hover:bg-muted/50",
             variant === "outline" &&
-              "border-border bg-background text-foreground hover:bg-card hover:border-muted border",
+              "border-border text-foreground hover:bg-muted/30 hover:border-muted border",
             variant === "link" && "text-foreground px-0 underline-offset-4 hover:underline",
             className,
           )}
