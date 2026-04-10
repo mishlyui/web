@@ -37,7 +37,7 @@ export const BETTER_AUTH_RATE_LIMIT = {
     MAX: 15,
   },
   MAGIC_LINK: {
-    WINDOW: 60,
+    WINDOW: 300,
     MAX: 5,
   },
 } as const
