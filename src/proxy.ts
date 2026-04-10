@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { PUBLIC_ROUTES } from "@/constants/routes"
 import { AUTH_COOKIE } from "@/constants/auth"
+import { PUBLIC_ROUTES, AUTH_ROUTES, ROUTES } from "@/constants/routes"
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -10,16 +10,16 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
+  const sessionToken = request.cookies.get(AUTH_COOKIE.SESSION_TOKEN)
   const isPublicPath = PUBLIC_ROUTES.some((path) => pathname === path)
+  const isAuthRoute = AUTH_ROUTES.some((path) => pathname === path)
 
-  if (isPublicPath) {
-    return NextResponse.next()
+  if (isAuthRoute && sessionToken) {
+    return NextResponse.redirect(new URL(ROUTES.HOME, request.url))
   }
 
-  const sessionToken = request.cookies.get(AUTH_COOKIE.SESSION_TOKEN)
-
-  if (!sessionToken) {
-    const loginUrl = new URL(PUBLIC_ROUTES[1], request.url)
+  if (!isPublicPath && !sessionToken) {
+    const loginUrl = new URL(ROUTES.LOGIN, request.url)
     loginUrl.searchParams.set("from", pathname)
     return NextResponse.redirect(loginUrl)
   }
