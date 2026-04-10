@@ -37,8 +37,18 @@ export const AuthForm = memo(() => {
         })
         setMessage("Check your email for the magic link!")
         setEmail("")
-      } catch {
-        setMessage("Failed to send magic link. Try again.")
+      } catch (error: any) {
+        const errorMessage = error?.message?.toLowerCase() || ""
+
+        if (
+          errorMessage.includes("rate") ||
+          errorMessage.includes("limit") ||
+          errorMessage.includes("too many")
+        ) {
+          setMessage("Too many requests. Please wait a few minutes and try again.")
+        } else {
+          setMessage("Failed to send magic link. Please try again.")
+        }
       } finally {
         setIsEmailLoading(false)
       }
@@ -66,8 +76,20 @@ export const AuthForm = memo(() => {
           provider,
           callbackURL: AUTH_CALLBACKS.DEFAULT,
         })
-      } catch {
-        setMessage(`Failed to sign in with ${provider}`)
+      } catch (error: any) {
+        const errorMessage = error?.message?.toLowerCase() || ""
+        const providerName = provider.charAt(0).toUpperCase() + provider.slice(1)
+
+        if (
+          errorMessage.includes("rate") ||
+          errorMessage.includes("limit") ||
+          errorMessage.includes("too many")
+        ) {
+          setMessage(`Too many requests. Please wait a moment and try again.`)
+        } else {
+          setMessage(`Failed to sign in with ${providerName}. Please try again.`)
+        }
+
         if (provider === AUTH_PROVIDERS.GITHUB) {
           setIsGithubLoading(false)
         } else {
