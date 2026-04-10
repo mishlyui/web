@@ -10,4 +10,4 @@ export {
   apiValidationError,
   apiInternalError,
 } from "./response"
-export { createApiHandler, withErrorHandling } from "./handler"
+export { createApiHandler, withErrorHandling, withRateLimit } from "./handler"

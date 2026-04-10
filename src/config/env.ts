@@ -14,9 +14,12 @@ export const env = {
   GITHUB_CLIENT_SECRET: getEnvVar("GITHUB_CLIENT_SECRET"),
   GOOGLE_CLIENT_ID: getEnvVar("GOOGLE_CLIENT_ID"),
   GOOGLE_CLIENT_SECRET: getEnvVar("GOOGLE_CLIENT_SECRET"),
+  UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL || "",
+  UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN || "",
   NODE_ENV: process.env.NODE_ENV || "development",
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
 } as const
 
 export const isDevelopment = env.NODE_ENV === "development"
 export const isProduction = env.NODE_ENV === "production"
+export const isRedisEnabled = !!(env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN)
