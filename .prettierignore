@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+.turbo/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Cache
+.cache/
+
+# Generated files
+coverage/
+*.pem
+
+# System files
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.swp
+*~
+
+# Lock files (keep these in git!)
+# pnpm-lock.yaml
