@@ -10,7 +10,7 @@ export default function NotFound() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center gap-8 px-4">
       <div className="absolute top-4 left-4">
-        <Button variant="link" onClick={() => router.back()} className="h-10 w-10 p-0">
+        <Button variant="ghost" onClick={() => router.back()} className="h-10 w-10 p-0">
           <ArrowLeftIcon className="h-5 w-5" />
         </Button>
       </div>
