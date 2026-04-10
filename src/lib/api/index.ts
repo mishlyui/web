@@ -11,3 +11,4 @@ export {
   apiInternalError,
 } from "./response"
 export { createApiHandler, withErrorHandling, withRateLimit } from "./handler"
+export { createRateLimitMiddleware, withAuthRateLimit, authRateLimitRules } from "./middleware"

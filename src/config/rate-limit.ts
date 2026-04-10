@@ -1,13 +1,8 @@
 import { Redis } from "@upstash/redis"
 import { env, isRedisEnabled } from "@/config/env"
 import { RATE_LIMIT_CONFIGS } from "@/constants/rate-limit"
-import { Ratelimit, type Duration } from "@upstash/ratelimit"
-
-export interface RateLimitConfig {
-  requests: number
-  window: Duration
-  prefix?: string
-}
+import { Ratelimit } from "@upstash/ratelimit"
+import type { RateLimitConfig, RateLimitResult } from "@/types/rate-limit"
 
 const CONFIGS: Record<string, RateLimitConfig> = {
   api: {
@@ -24,6 +19,11 @@ const CONFIGS: Record<string, RateLimitConfig> = {
     requests: RATE_LIMIT_CONFIGS.STRICT.REQUESTS,
     window: RATE_LIMIT_CONFIGS.STRICT.WINDOW,
     prefix: RATE_LIMIT_CONFIGS.STRICT.PREFIX,
+  },
+  strictIp: {
+    requests: RATE_LIMIT_CONFIGS.STRICT_IP.REQUESTS,
+    window: RATE_LIMIT_CONFIGS.STRICT_IP.WINDOW,
+    prefix: RATE_LIMIT_CONFIGS.STRICT_IP.PREFIX,
   },
 }
 
@@ -44,6 +44,12 @@ function getRedis(): Redis | null {
   return redis
 }
 
+export function resetRedisConnection(): void {
+  if (redis) {
+    redis = null
+  }
+}
+
 function createRateLimiter(config: RateLimitConfig) {
   const redisInstance = getRedis()
 
@@ -53,7 +59,7 @@ function createRateLimiter(config: RateLimitConfig) {
 
   return new Ratelimit({
     redis: redisInstance,
-    limiter: Ratelimit.slidingWindow(config.requests, config.window),
+    limiter: Ratelimit.fixedWindow(config.requests, config.window),
     analytics: true,
     prefix: config.prefix,
   })
@@ -63,12 +69,13 @@ export const rateLimiters = {
   api: createRateLimiter(CONFIGS.api),
   auth: createRateLimiter(CONFIGS.auth),
   strict: createRateLimiter(CONFIGS.strict),
+  strictIp: createRateLimiter(CONFIGS.strictIp),
 }
 
 export async function checkRateLimit(
   identifier: string,
   limiter: Ratelimit | null,
-): Promise<{ success: boolean; remaining: number; reset: number }> {
+): Promise<RateLimitResult> {
   if (!limiter) {
     return { success: true, remaining: 999, reset: 0 }
   }
