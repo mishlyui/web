@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db"
+import { prisma } from "@/lib/db/client"
 import { betterAuth } from "better-auth"
 import { magicLink } from "better-auth/plugins"
 import { prismaAdapter } from "better-auth/adapters/prisma"

@@ -1,11 +1,11 @@
 "use client"
 
-import { authClient } from "@/lib/auth-client"
+import { authClient } from "@/features/auth/lib/client"
 import { useCallback, useState, memo } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { GitHubIcon, GoogleIcon } from "@/components/ui/icons"
-import { emailSchema } from "@/lib/validations/auth"
+import { emailSchema } from "@/features/auth/schemas/email.schema"
 import { useFormValidation } from "@/hooks/use-form-validation"
 
 export const AuthForm = memo(() => {
@@ -52,30 +52,27 @@ export const AuthForm = memo(() => {
     }
   }
 
-  const handleSocialSignIn = useCallback(
-    async (provider: "github" | "google") => {
-      if (provider === "github") {
-        setIsGithubLoading(true)
-      } else {
-        setIsGoogleLoading(true)
-      }
+  const handleSocialSignIn = useCallback(async (provider: "github" | "google") => {
+    if (provider === "github") {
+      setIsGithubLoading(true)
+    } else {
+      setIsGoogleLoading(true)
+    }
 
-      try {
-        await authClient.signIn.social({
-          provider,
-          callbackURL: "/",
-        })
-      } catch {
-        setMessage(`Failed to sign in with ${provider}`)
-        if (provider === "github") {
-          setIsGithubLoading(false)
-        } else {
-          setIsGoogleLoading(false)
-        }
+    try {
+      await authClient.signIn.social({
+        provider,
+        callbackURL: "/",
+      })
+    } catch {
+      setMessage(`Failed to sign in with ${provider}`)
+      if (provider === "github") {
+        setIsGithubLoading(false)
+      } else {
+        setIsGoogleLoading(false)
       }
-    },
-    [],
-  )
+    }
+  }, [])
 
   return (
     <div className="w-full max-w-sm space-y-6">

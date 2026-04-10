@@ -1,10 +1,7 @@
-import { Metadata } from "next"
-import { AuthForm } from "@/components/auth/auth-form"
+import { metadataConfig } from "@/config"
+import { AuthForm } from "@/features/auth/components/auth-form"
 
-export const metadata: Metadata = {
-  title: "Login - Mishly UI",
-  description: "Sign in to access premium components",
-}
+export const metadata = metadataConfig.login
 
 export default function LoginPage() {
   return (

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/core/utils"
+import { cn } from "@/lib/utils/cn"
 import { ButtonHTMLAttributes, forwardRef, memo } from "react"
 import { Spinner } from "@/components/ui/spinner"
 

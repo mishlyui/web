@@ -6,11 +6,7 @@ interface UseLoadingOptions {
   text?: string
 }
 
-export const useLoading = (
-  isLoading: boolean,
-  content: ReactNode,
-  options?: UseLoadingOptions
-) => {
+export const useLoading = (isLoading: boolean, content: ReactNode, options?: UseLoadingOptions) => {
   if (isLoading) {
     return <PageLoader showText={options?.showText} text={options?.text} />
   }

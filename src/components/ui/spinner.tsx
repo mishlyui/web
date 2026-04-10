@@ -1,4 +1,4 @@
-import { cn } from "@/lib/core/utils"
+import { cn } from "@/lib/utils/cn"
 import { HTMLAttributes, memo } from "react"
 
 interface SpinnerProps extends HTMLAttributes<HTMLDivElement> {
