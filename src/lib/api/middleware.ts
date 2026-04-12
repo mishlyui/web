@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { checkRateLimit, rateLimiters } from "@/config/rate-limit"
+import { checkRateLimit, rateLimiters } from "@/lib/rate-limit/client"
 import { RATE_LIMIT_HEADERS, MIDDLEWARE_CONFIG } from "@/constants"
-import { auth } from "@/features/auth/lib/server"
+import { auth } from "@/lib/auth/server"
 import type { RateLimitCheck, RateLimitRule, RateLimitRequestBody } from "@/types/rate-limit"
 
 type RateLimiterType = keyof typeof rateLimiters

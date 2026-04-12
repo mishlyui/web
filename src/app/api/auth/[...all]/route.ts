@@ -1,4 +1,4 @@
-import { auth } from "@/features/auth/lib/server"
+import { auth } from "@/lib/auth/server"
 import { toNextJsHandler } from "better-auth/next-js"
 import { NextRequest } from "next/server"
 import { withAuthRateLimit } from "@/lib/api"

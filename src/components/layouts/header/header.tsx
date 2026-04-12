@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { SearchButton } from "@/components/ui/search-button"
 import { DiscordIcon, MenuIcon, CloseIcon } from "@/components/ui/icons"
-import { useHeader } from "./use-header"
+import { useHeader } from "./hooks/use-header"
 import { MobileMenu } from "./mobile-menu"
 
 interface HeaderProps {

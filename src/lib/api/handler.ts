@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { checkRateLimit, rateLimiters } from "@/config/rate-limit"
+import { checkRateLimit, rateLimiters } from "@/lib/rate-limit/client"
 import { handleApiError, apiInternalError, apiError } from "@/lib/api"
 import { API_CONFIG, API_HEADERS, API_STATUS_CODES } from "@/constants/api"
 import { RATE_LIMIT_HEADERS, RATE_LIMIT_ERROR, RATE_LIMIT_PRESETS } from "@/constants/rate-limit"

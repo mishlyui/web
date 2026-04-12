@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils/cn"
 import { HTMLAttributes, memo } from "react"
 
-interface KbdProps extends HTMLAttributes<HTMLElement> {
+export interface KbdProps extends HTMLAttributes<HTMLElement> {
   size?: "sm" | "md"
 }
 

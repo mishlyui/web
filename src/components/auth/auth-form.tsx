@@ -1,13 +1,11 @@
 "use client"
 
-import { authClient } from "@/features/auth/lib/client"
+import { authClient } from "@/lib/auth"
 import { useCallback, useState, memo } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { GitHubIcon, GoogleIcon } from "@/components/ui/icons"
-import { emailSchema } from "@/features/auth/schemas/email.schema"
-import { useFormValidation } from "@/hooks/use-form-validation"
-import { AUTH_CALLBACKS, AUTH_PROVIDERS } from "@/constants/auth"
+import { Input, Button, GitHubIcon, GoogleIcon } from "@/components/ui"
+import { emailSchema } from "@/schemas/auth"
+import { useFormValidation } from "@/hooks"
+import { AUTH_CALLBACKS, AUTH_PROVIDERS } from "@/constants"
 
 export const AuthForm = memo(() => {
   const [email, setEmail] = useState("")
@@ -37,8 +35,8 @@ export const AuthForm = memo(() => {
         })
         setMessage("Check your email for the magic link!")
         setEmail("")
-      } catch (error: any) {
-        const errorMessage = error?.message?.toLowerCase() || ""
+      } catch (error: unknown) {
+        const errorMessage = (error as Error)?.message?.toLowerCase() || ""
 
         if (
           errorMessage.includes("rate") ||
@@ -76,8 +74,8 @@ export const AuthForm = memo(() => {
           provider,
           callbackURL: AUTH_CALLBACKS.DEFAULT,
         })
-      } catch (error: any) {
-        const errorMessage = error?.message?.toLowerCase() || ""
+      } catch (error: unknown) {
+        const errorMessage = (error as Error)?.message?.toLowerCase() || ""
         const providerName = provider.charAt(0).toUpperCase() + provider.slice(1)
 
         if (

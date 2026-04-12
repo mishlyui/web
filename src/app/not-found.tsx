@@ -21,7 +21,7 @@ export default function NotFound() {
         <div className="flex flex-col items-center gap-2">
           <p className="text-foreground text-2xl font-semibold">Page not found</p>
           <p className="text-muted-foreground max-w-md text-center text-sm">
-            The page you're looking for doesn't exist or has been moved
+            The page you&apos;re looking for doesn&apos;t exist or has been moved
           </p>
         </div>
       </div>

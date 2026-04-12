@@ -1,1 +1,1 @@
-export { default } from "@/components/layouts/protected-layout"
+export { ProtectedLayout as default } from "@/components/layouts"

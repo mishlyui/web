@@ -1,5 +1,5 @@
 import { metadataConfig } from "@/config"
-import { AuthForm } from "@/features/auth/components/auth-form"
+import { AuthForm } from "@/components/auth"
 
 export const metadata = metadataConfig.login
 

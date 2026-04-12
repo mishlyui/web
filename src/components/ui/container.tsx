@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils/cn"
 import { HTMLAttributes, memo } from "react"
 
-interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
+export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   size?: "sm" | "md" | "lg" | "xl" | "full"
 }
 

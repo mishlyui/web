@@ -1,3 +1,3 @@
-export { default as ProtectedLayout } from "./protected-layout"
-export { default as AuthLayout } from "./auth-layout"
-export * from "./header"
+export { ProtectedLayout } from "./protected"
+export { AuthLayout } from "./auth"
+export { Header } from "./header"

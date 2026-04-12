@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils/cn"
 import { ButtonHTMLAttributes, forwardRef, memo } from "react"
 import { Spinner } from "@/components/ui/spinner"
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "ghost" | "outline" | "link"
   isLoading?: boolean
 }

@@ -2,11 +2,11 @@
 
 import { ReactNode, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { authClient } from "@/features/auth/lib/client"
-import { useLoading } from "@/hooks/use-loading"
-import { ROUTES } from "@/constants/routes"
+import { authClient } from "@/lib/auth"
+import { useLoading } from "@/hooks"
+import { ROUTES } from "@/constants"
 
-export default function ProtectedLayout({ children }: { children: ReactNode }) {
+export function ProtectedLayout({ children }: { children: ReactNode }) {
   const { data: session, isPending } = authClient.useSession()
   const router = useRouter()
 

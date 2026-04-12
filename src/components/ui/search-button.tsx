@@ -5,7 +5,7 @@ import { SearchIcon } from "@/components/ui/icons"
 import { Kbd } from "@/components/ui/kbd"
 import { ButtonHTMLAttributes, memo } from "react"
 
-interface SearchButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SearchButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   placeholder?: string
   shortcut?: string
   showShortcut?: boolean

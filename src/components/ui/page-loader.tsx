@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { Spinner } from "@/components/ui/spinner"
 
-interface PageLoaderProps {
+export interface PageLoaderProps {
   text?: string
   showText?: boolean
 }
