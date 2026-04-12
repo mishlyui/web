@@ -11,6 +11,7 @@ import { SearchButton } from "@/components/ui/search-button"
 import { DiscordIcon, MenuIcon, CloseIcon } from "@/components/ui/icons"
 import { useHeader } from "./hooks/use-header"
 import { MobileMenu } from "./mobile-menu"
+import { headerAnimation, iconRotateAnimation } from "@/lib/animations"
 
 interface HeaderProps {
   onSearchClick?: () => void
@@ -29,9 +30,7 @@ export const Header = memo(({ onSearchClick }: HeaderProps) => {
   return (
     <motion.header
       ref={menuRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+      {...headerAnimation}
       className={cn(
         "bg-background fixed top-0 z-50 w-full transition-all duration-200",
         isScrolled && "backdrop-blur-md",
@@ -90,23 +89,11 @@ export const Header = memo(({ onSearchClick }: HeaderProps) => {
           >
             <AnimatePresence mode="wait">
               {isMobileMenuOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+                <motion.div key="close" {...iconRotateAnimation(true)}>
                   <CloseIcon className="h-5 w-5" />
                 </motion.div>
               ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ opacity: 0, rotate: 90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: -90 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+                <motion.div key="menu" {...iconRotateAnimation(false)}>
                   <MenuIcon className="h-5 w-5" />
                 </motion.div>
               )}

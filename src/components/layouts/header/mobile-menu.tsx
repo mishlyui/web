@@ -6,6 +6,7 @@ import { memo } from "react"
 import { Container } from "@/components/ui/container"
 import { SearchButton } from "@/components/ui/search-button"
 import { DiscordIcon } from "@/components/ui/icons"
+import { mobileMenuAnimation, staggerItemAnimation, fadeIn, DURATION } from "@/lib/animations"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -25,21 +26,13 @@ export const MobileMenu = memo(
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            {...mobileMenuAnimation}
             className="border-border bg-background overflow-hidden border-t md:hidden"
           >
             <Container size="md" className="py-4">
               <nav className="flex flex-col gap-4">
                 {headerConfig.navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: index * 0.05 }}
-                  >
+                  <motion.div key={link.label} {...staggerItemAnimation(index)}>
                     <Link
                       href={link.href}
                       onClick={onClose}
@@ -55,9 +48,7 @@ export const MobileMenu = memo(
 
                 {headerConfig.mobileMenu.showSearch && (
                   <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: headerConfig.navLinks.length * 0.05 }}
+                    {...staggerItemAnimation(headerConfig.navLinks.length)}
                     className="md:hidden"
                   >
                     <SearchButton
@@ -71,9 +62,8 @@ export const MobileMenu = memo(
                 )}
 
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2, delay: 0.2 }}
+                  {...fadeIn}
+                  transition={{ duration: DURATION.normal, delay: 0.2 }}
                   className="border-border border-t pt-4"
                 >
                   {headerConfig.socialLinks.map((social) => (
