@@ -1,16 +1,36 @@
 "use client"
 
+import { ROUTES } from "@/constants"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ArrowLeftIcon } from "@/components/ui/icons"
 
 export default function NotFound() {
   const router = useRouter()
+  const [previousPath, setPreviousPath] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.history.length > 2) {
+      const referrer = document.referrer
+      if (referrer && new URL(referrer).origin === window.location.origin) {
+        setPreviousPath(new URL(referrer).pathname)
+      }
+    }
+  }, [])
+
+  const handleBack = () => {
+    if (previousPath) {
+      router.replace(previousPath)
+    } else {
+      router.replace(ROUTES.HOME)
+    }
+  }
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center gap-8 px-4">
       <div className="absolute top-4 left-4">
-        <Button variant="ghost" onClick={() => router.back()} className="h-10 w-10 p-0">
+        <Button variant="ghost" onClick={handleBack} className="h-10 w-10 p-0">
           <ArrowLeftIcon className="h-5 w-5" />
         </Button>
       </div>
