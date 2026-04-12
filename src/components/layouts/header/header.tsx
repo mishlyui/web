@@ -32,7 +32,7 @@ export const Header = memo(({ onSearchClick }: HeaderProps) => {
       ref={menuRef}
       {...headerAnimation}
       className={cn(
-        "bg-background fixed top-0 z-50 w-full transition-all duration-200",
+        "fixed top-0 z-50 w-full transition-all duration-200",
         isScrolled && "backdrop-blur-md",
       )}
     >
