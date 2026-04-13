@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { metadataConfig } from "@/config"
 import { Geist, Geist_Mono } from "next/font/google"
+import { LenisProvider } from "@/components/providers"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <LenisProvider>{children}</LenisProvider>
+      </body>
     </html>
   )
 }
