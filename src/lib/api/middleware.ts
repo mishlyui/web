@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { checkRateLimit, rateLimiters } from "@/lib/rate-limit/client"
-import { RATE_LIMIT_HEADERS, MIDDLEWARE_CONFIG } from "@/constants"
+import {
+  RATE_LIMIT_HEADERS,
+  MIDDLEWARE_CONFIG,
+  MIDDLEWARE_HTTP_STATUS,
+  MIDDLEWARE_ERROR_CODES,
+  MIDDLEWARE_ERROR_MESSAGES,
+} from "@/constants"
 import { auth } from "@/lib/auth/server"
 import type { RateLimitCheck, RateLimitRule, RateLimitRequestBody } from "@/types/rate-limit"
 
@@ -76,12 +82,12 @@ export function createRateLimitMiddleware(rules: RateLimitRule[]) {
 
           return NextResponse.json(
             {
-              error: MIDDLEWARE_CONFIG.ERROR_MESSAGES.RATE_LIMIT_EXCEEDED,
-              code: MIDDLEWARE_CONFIG.ERROR_CODES.RATE_LIMIT_EXCEEDED,
+              error: MIDDLEWARE_ERROR_MESSAGES.RATE_LIMIT_EXCEEDED,
+              code: MIDDLEWARE_ERROR_CODES.RATE_LIMIT_EXCEEDED,
               retryAfter,
             },
             {
-              status: MIDDLEWARE_CONFIG.HTTP_STATUS.TOO_MANY_REQUESTS,
+              status: MIDDLEWARE_HTTP_STATUS.VALIDATION_ERROR,
               headers: {
                 [RATE_LIMIT_HEADERS.REMAINING]: "0",
                 [RATE_LIMIT_HEADERS.RESET]: result.reset.toString(),
@@ -123,10 +129,10 @@ export function createRateLimitMiddleware(rules: RateLimitRule[]) {
 
       return NextResponse.json(
         {
-          error: MIDDLEWARE_CONFIG.ERROR_MESSAGES.INTERNAL_ERROR,
-          code: MIDDLEWARE_CONFIG.ERROR_CODES.INTERNAL_ERROR,
+          error: MIDDLEWARE_ERROR_MESSAGES.INTERNAL_ERROR,
+          code: MIDDLEWARE_ERROR_CODES.INTERNAL_ERROR,
         },
-        { status: MIDDLEWARE_CONFIG.HTTP_STATUS.INTERNAL_ERROR },
+        { status: MIDDLEWARE_HTTP_STATUS.INTERNAL_ERROR },
       )
     }
   }

@@ -1,3 +1,5 @@
+import { API_STATUS_CODES, API_ERROR_CODES, API_ERROR_MESSAGES } from "./api"
+
 export const MIDDLEWARE_CONFIG = {
   DEFAULT_IP: "127.0.0.1",
   IDENTIFIER_PREFIXES: {
@@ -12,18 +14,6 @@ export const MIDDLEWARE_CONFIG = {
     X_REAL_IP: "x-real-ip",
     X_API_KEY: "x-api-key",
   },
-  HTTP_STATUS: {
-    TOO_MANY_REQUESTS: 429,
-    INTERNAL_ERROR: 500,
-  },
-  ERROR_CODES: {
-    RATE_LIMIT_EXCEEDED: "RATE_LIMIT_EXCEEDED",
-    INTERNAL_ERROR: "INTERNAL_ERROR",
-  },
-  ERROR_MESSAGES: {
-    RATE_LIMIT_EXCEEDED: "Too many requests. Please try again later.",
-    INTERNAL_ERROR: "Internal server error",
-  },
   LOG_PREFIXES: {
     RATE_LIMIT: "[Rate Limit]",
     MIDDLEWARE: "[Rate Limit Middleware]",
@@ -33,4 +23,14 @@ export const MIDDLEWARE_CONFIG = {
     SOCIAL_SIGN_IN: "/sign-in/social",
     SIGN_IN: "/sign-in",
   },
+} as const
+
+export const MIDDLEWARE_HTTP_STATUS = API_STATUS_CODES
+export const MIDDLEWARE_ERROR_CODES = {
+  RATE_LIMIT_EXCEEDED: API_ERROR_CODES.RATE_LIMIT_EXCEEDED,
+  INTERNAL_ERROR: API_ERROR_CODES.INTERNAL_ERROR,
+} as const
+export const MIDDLEWARE_ERROR_MESSAGES = {
+  RATE_LIMIT_EXCEEDED: API_ERROR_MESSAGES.RATE_LIMIT_EXCEEDED,
+  INTERNAL_ERROR: API_ERROR_MESSAGES.INTERNAL_ERROR,
 } as const

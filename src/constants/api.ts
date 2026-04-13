@@ -13,6 +13,7 @@ export const API_ERROR_CODES = {
   FORBIDDEN: "FORBIDDEN",
   NOT_FOUND: "NOT_FOUND",
   VALIDATION_ERROR: "VALIDATION_ERROR",
+  RATE_LIMIT_EXCEEDED: "RATE_LIMIT_EXCEEDED",
   INTERNAL_ERROR: "INTERNAL_ERROR",
   UNKNOWN_ERROR: "UNKNOWN_ERROR",
 } as const
@@ -22,6 +23,7 @@ export const API_ERROR_MESSAGES = {
   FORBIDDEN: "Forbidden",
   NOT_FOUND: "Resource not found",
   VALIDATION_FAILED: "Validation failed",
+  RATE_LIMIT_EXCEEDED: "Too many requests. Please try again later.",
   INTERNAL_ERROR: "Internal server error",
   UNKNOWN_ERROR: "Unknown error occurred",
 } as const
