@@ -4,16 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm fetch:components && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "prebuild": "tsx scripts/fetch-components.ts",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
     "fetch:components": "tsx scripts/fetch-components.ts",
     "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "ci": "pnpm type-check && pnpm lint && pnpm format:check"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.7.0",
