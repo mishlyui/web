@@ -18,7 +18,7 @@ export function Card({ href, preview, footer, className }: CardProps) {
         className,
       )}
     >
-      <div className="bg-muted flex aspect-video items-center justify-center overflow-hidden rounded-lg">
+      <div className="bg-muted relative flex aspect-auto items-center justify-center overflow-hidden rounded-lg">
         {preview}
       </div>
       <div className="flex flex-1 flex-col justify-center px-1 py-3">{footer}</div>

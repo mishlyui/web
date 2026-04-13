@@ -2,7 +2,7 @@
 
 import { memo } from "react"
 import { motion } from "framer-motion"
-import { Card } from "@/components/ui"
+import { Card, OptimizedImage, OptimizedVideo } from "@/components/ui"
 import { componentCardAnimation } from "@/lib/animations"
 import { componentListConfig, type ComponentItem } from "@/config/components"
 
@@ -14,8 +14,19 @@ interface ComponentCardProps {
 export const ComponentCard = memo(({ component, index }: ComponentCardProps) => {
   const href = componentListConfig.hrefPattern.replace("{slug}", component.slug)
 
+  const isVideo = component.preview?.endsWith(".mp4")
+
   const preview = component.preview ? (
-    <img src={component.preview} alt={component.name} className="h-full w-full object-cover" />
+    isVideo ? (
+      <OptimizedVideo src={component.preview} />
+    ) : (
+      <OptimizedImage
+        src={component.preview}
+        alt={component.name}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+    )
   ) : (
     <div className="text-muted-foreground text-6xl font-bold opacity-10">
       {component.name.charAt(0)}

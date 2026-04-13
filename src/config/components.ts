@@ -14,4 +14,19 @@ export const componentListConfig = {
   hrefPattern: "/components/{slug}",
 } as const
 
-export const componentsConfig: ComponentItem[] = [] as const
+export const componentsConfig: ComponentItem[] = [
+  {
+    "slug": "logo-carousel",
+    "name": "Logo Carousel",
+    "category": "marketing",
+    "description": "",
+    "tags": [
+      "carousel",
+      "logos"
+    ],
+    "version": "1.0.0",
+    "featured": false,
+    "createdAt": "2026-04-12",
+    "preview": "https://jndo8d1mwbvhbjnx.public.blob.vercel-storage.com/components/logo-carousel.mp4"
+  }
+]
