@@ -40,3 +40,12 @@ export function staggerItemAnimation(index: number) {
     }),
   }
 }
+
+export function componentCardAnimation(index: number) {
+  return {
+    ...fadeIn,
+    transition: getTransition({
+      duration: DURATION.normal,
+    }),
+  }
+}

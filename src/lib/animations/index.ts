@@ -5,4 +5,5 @@ export {
   mobileMenuAnimation,
   iconRotateAnimation,
   staggerItemAnimation,
+  componentCardAnimation,
 } from "./presets"

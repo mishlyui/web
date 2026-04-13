@@ -1,10 +1,11 @@
-import { Header, Hero } from "@/components"
+import { Header, Hero, ComponentList } from "@/components"
 
 export default function Home() {
   return (
     <>
       <Header />
       <Hero />
+      <ComponentList />
     </>
   )
 }
