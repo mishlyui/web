@@ -50,7 +50,12 @@ export const ComponentCard = memo(({ component, index }: ComponentCardProps) => 
 
   return (
     <motion.div {...componentCardAnimation(index)}>
-      <Card href={href} preview={preview} footer={footer} />
+      <Card
+        href={href}
+        preview={preview}
+        footer={footer}
+        ariaLabel={`View ${component.name} component details`}
+      />
     </motion.div>
   )
 })

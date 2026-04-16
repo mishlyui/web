@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
+import { Skeleton } from "./skeleton"
 
 interface OptimizedVideoProps {
   src: string
@@ -21,6 +22,7 @@ export function OptimizedVideo({
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [shouldLoad, setShouldLoad] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const container = containerRef.current
@@ -49,17 +51,25 @@ export function OptimizedVideo({
     if (!video || !shouldLoad) return
 
     const handleCanPlay = () => {
+      setIsLoading(false)
       video.play().catch(() => {})
     }
 
+    const handleLoadedData = () => {
+      setIsLoading(false)
+    }
+
     video.addEventListener("canplay", handleCanPlay)
+    video.addEventListener("loadeddata", handleLoadedData)
 
     if (video.readyState >= 2) {
+      setIsLoading(false)
       video.play().catch(() => {})
     }
 
     return () => {
       video.removeEventListener("canplay", handleCanPlay)
+      video.removeEventListener("loadeddata", handleLoadedData)
     }
   }, [shouldLoad])
 
@@ -67,14 +77,23 @@ export function OptimizedVideo({
     return (
       <div
         ref={containerRef}
-        className={cn("bg-muted h-auto w-full", className)}
+        className={cn("bg-muted relative h-auto w-full", className)}
         style={{ aspectRatio: "16/9" }}
-      />
+      >
+        <Skeleton className="absolute inset-0" aria-label="Loading video" />
+      </div>
     )
   }
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="relative">
+      {isLoading && (
+        <Skeleton
+          className="absolute inset-0 z-10"
+          style={{ aspectRatio: "16/9" }}
+          aria-label="Loading video"
+        />
+      )}
       <video
         ref={videoRef}
         src={src}
@@ -83,7 +102,11 @@ export function OptimizedVideo({
         muted={muted}
         playsInline={playsInline}
         preload="metadata"
-        className={cn("h-auto w-full", className)}
+        className={cn(
+          "h-auto w-full transition-opacity duration-300",
+          isLoading ? "opacity-0" : "opacity-100",
+          className,
+        )}
         style={{ pointerEvents: "none" }}
       />
     </div>

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { Skeleton } from "./skeleton"
 
 interface OptimizedImageProps {
   src: string
@@ -28,7 +29,8 @@ export function OptimizedImage({
   const [isLoading, setIsLoading] = useState(true)
 
   return (
-    <div className={cn("overflow-hidden", className)}>
+    <div className={cn("relative overflow-hidden", className)}>
+      {isLoading && <Skeleton className="absolute inset-0 z-10" aria-label="Loading image" />}
       <Image
         src={src}
         alt={alt}
@@ -40,7 +42,7 @@ export function OptimizedImage({
         quality={90}
         className={cn(
           "duration-300 ease-in-out",
-          isLoading ? "scale-105 blur-sm" : "blur-0 scale-100",
+          isLoading ? "scale-105 opacity-0 blur-sm" : "blur-0 scale-100 opacity-100",
           fill ? "object-cover" : "h-full w-full object-cover",
         )}
         onLoad={() => setIsLoading(false)}

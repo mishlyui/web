@@ -22,6 +22,7 @@ export const SearchButton = memo(
   }: SearchButtonProps) => {
     return (
       <button
+        aria-label="Search components"
         className={cn(
           "border-border bg-card text-muted-foreground group flex h-9 w-60 items-center justify-between gap-2 rounded-md border px-3.5 text-[13px] transition-colors",
           disabled ? "cursor-not-allowed opacity-50" : "hover:bg-muted/50 cursor-pointer",

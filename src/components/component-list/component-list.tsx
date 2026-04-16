@@ -20,8 +20,9 @@ export function ComponentList() {
   const componentCount = componentsConfig.length
 
   return (
-    <section id="components" className="-mt-50 py-4">
+    <section id="components" className="-mt-50 py-4" aria-label="Component library">
       <Container size="full">
+        <span className="sr-only">Loading {componentCount} components</span>
         <Suspense fallback={<ComponentListSkeleton count={componentCount} />}>
           <ComponentListContent />
         </Suspense>

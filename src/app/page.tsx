@@ -4,8 +4,10 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Hero />
-      <ComponentList />
+      <main id="main-content">
+        <Hero />
+        <ComponentList />
+      </main>
     </>
   )
 }

@@ -7,12 +7,14 @@ interface CardProps {
   preview?: ReactNode
   footer: ReactNode
   className?: string
+  ariaLabel?: string
 }
 
-export function Card({ href, preview, footer, className }: CardProps) {
+export function Card({ href, preview, footer, className, ariaLabel }: CardProps) {
   return (
     <Link
       href={href}
+      aria-label={ariaLabel}
       className={cn(
         "border-border/50 bg-card hover:border-border flex h-full flex-col rounded-xl border p-1 transition-colors",
         className,
